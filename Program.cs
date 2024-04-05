@@ -1,20 +1,17 @@
 ﻿//Proyecto Battleship Edgar =============================================================
 
+using System;
+using System.ComponentModel.Design;
+using System.Runtime.CompilerServices;
 
 //=======================================================================================
 //AREA DE FUNCIONES =====================================================================
 //=======================================================================================
 
 
-
-
-using System;
-using System.ComponentModel.Design;
-using System.Runtime.CompilerServices;
-
 //AREA DE TABLERO NEUTRO ==============
 
-//Función || Generar un tablero en blanco (Lleno de el símbolo base) ================================
+//Función || Generar un tablero en blanco (Lleno de el símbolo base) ====================
 static char[,] ffgenerar_tablero_en_blanco(char[,] eetablero, char eebase)
 {
     int eetablero_dimenciones = eetablero.GetLength(0);
@@ -276,18 +273,11 @@ static bool ffcomprobar_tablero_enemigo(char[,] eetablero_enemigo, char eedanio,
 //AREA DE DEFINICIONES ==================================================================
 //=======================================================================================
 
-bool eebool;
-
 char eebase = '*';
 char eedanio = 'O';
 char eefallo = 'X';
 
 string[] eebarcos = { "F", "NN", "PPP" };
-
-string eefragata = "F";
-string eenavio = "NN";
-string eeportaviones = "PPP";
-
 
 char[,] eetablero = new char[20, 20];
 char[,] eetablero_enemigo = new char[20, 20];

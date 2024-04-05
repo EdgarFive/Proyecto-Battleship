@@ -52,7 +52,7 @@ static void ffimprimit_tablero(char[,] eetablero)
         {
             if (eetablero[ii, jj] == 'F')
             {
-                Console.ForegroundColor = ConsoleColor.Red;
+                Console.ForegroundColor = ConsoleColor.Magenta;
                 Console.Write($"{eetablero[ii, jj],2} ");
                 Console.ResetColor();
 
@@ -279,8 +279,8 @@ static bool ffcomprobar_tablero_enemigo(char[,] eetablero_enemigo, char eedanio,
 bool eebool;
 
 char eebase = '*';
-char eedanio = 'X';
-char eefallo = 'O';
+char eedanio = 'O';
+char eefallo = 'X';
 
 string[] eebarcos = { "F", "NN", "PPP" };
 
@@ -318,17 +318,18 @@ for (int ii = 0; ii != 2;)
                 {
                     ffcolocar_los_barcos_enemigos(eetablero_enemigo, eebarco, eebase);
                 }
-                Console.WriteLine($"\nTablero propio:");
-                ffimprimit_tablero(eetablero_propio);
-                Console.WriteLine($"\nTablero enemigo:");
+                Console.WriteLine($"\nTablero enemigo: (Se imprime por motivos de comprobación)");
                 ffimprimit_tablero(eetablero_enemigo);
-
+                Console.WriteLine($"\nTablero propio: \"X\" Es un golpe FALLIDO y \"O\" Es un golpe ACERTADO");
+                ffimprimit_tablero(eetablero_propio);
+                Console.WriteLine($"\nComienza el juego!!!");
 
                 do
                 {
                     try
                     {
-                        Console.WriteLine($"\nComienza el juego!!!");
+                        Console.WriteLine($"");
+
                         Console.WriteLine($"Ingrese la fila: (Letra)");
                         char eeletra_fila = char.Parse(Console.ReadLine());
                         Console.WriteLine($"Ingrese la columna: (Numero)");
@@ -344,11 +345,10 @@ for (int ii = 0; ii != 2;)
                             Console.WriteLine($"Los datos ingresados se salen de los parámetros, inténtelo de nuevo:");
                             Console.ReadKey();
                         }
-                        Console.WriteLine($"\nTablero propio:");
-                        ffimprimit_tablero(eetablero_propio);
-                        Console.WriteLine($"\nTablero enemigo:");
+                        Console.WriteLine($"\nTablero enemigo: (Se imprime por motivos de comprobación)");
                         ffimprimit_tablero(eetablero_enemigo);
-                        
+                        Console.WriteLine($"\nTablero propio: \"X\" Es un golpe FALLIDO y \"O\" Es un golpe ACERTADO");
+                        ffimprimit_tablero(eetablero_propio);
                     }
                     catch (Exception eerror)
                     {

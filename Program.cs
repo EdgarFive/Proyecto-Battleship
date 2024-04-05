@@ -5,10 +5,16 @@
 //AREA DE FUNCIONES =====================================================================
 //=======================================================================================
 
-//Función || Generar un tablero en blanco (Lleno de el símbolo base) ================================
+
+
+
 using System;
+using System.ComponentModel.Design;
 using System.Runtime.CompilerServices;
 
+//AREA DE TABLERO NEUTRO ==============
+
+//Función || Generar un tablero en blanco (Lleno de el símbolo base) ================================
 static char[,] ffgenerar_tablero_en_blanco(char[,] eetablero, char eebase)
 {
     int eetablero_dimenciones = eetablero.GetLength(0);
@@ -64,7 +70,21 @@ static void ffimprimit_tablero(char[,] eetablero)
                 Console.Write($"{eetablero[ii, jj],2} ");
                 Console.ResetColor();
 
-            } else
+            }
+            else if (eetablero[ii, jj] == 'X')
+            {
+                Console.ForegroundColor =  ConsoleColor.Red;
+                Console.Write($"{eetablero[ii, jj],2} ");
+                Console.ResetColor();
+
+            }
+            else if (eetablero[ii, jj] == 'O')
+            {
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.Write($"{eetablero[ii, jj],2} ");
+                Console.ResetColor();
+            }
+            else
             {
                 Console.ResetColor();
                 Console.Write($"{eetablero[ii, jj],2} ");
@@ -75,6 +95,8 @@ static void ffimprimit_tablero(char[,] eetablero)
 }
 
 
+
+//AREA DE TABLERO ENEMIGO ================
 
 //Función || Colocar los barcos enemigos ================================================
 static void ffcolocar_los_barcos_enemigos(char[,] eetablero_enemigo, string eebarco, char eebase)
@@ -199,11 +221,66 @@ static void ffcolocando_barcos(char[,] eetablero_enemigo, string eebarco, int ee
 }
 
 
+//AREA DE ATAQUE ===========
+
+//Función || Dañar tablero enemigo ======================================================
+static void ffdañar_tablero_enemigo(char[,] eetablero_enemigo, char eeletra_fila, int eenumero_columna, char eebase, char eedanio, char eefallo, char[,] eetablero_propio)
+{
+    int eetamanio = eetablero_enemigo.GetLength(0);
+    int eeletra_fila_numero = ffconvertir_letra_en_numero(eeletra_fila);
+    if (eetablero_enemigo[eeletra_fila_numero,eenumero_columna] != eebase)
+    {
+        eetablero_enemigo[eeletra_fila_numero, eenumero_columna] = eedanio;
+        eetablero_propio[eeletra_fila_numero, eenumero_columna] = eedanio;
+        Console.WriteLine($"HAS ACERTADO UN GOLPE!!!");
+        Console.ReadKey();
+    }
+    else
+    {
+        eetablero_propio[eeletra_fila_numero, eenumero_columna] = eefallo;
+        Console.WriteLine($"HAS FALLADO EL GOLPE!!!");
+        Console.ReadKey();
+    }
+}
+
+//Funcion || Convertir letra en numero ==================================================
+static int ffconvertir_letra_en_numero(char eeletra_fila)
+{
+    eeletra_fila = char.ToUpper(eeletra_fila);
+    int eevalor = eeletra_fila - 'A';
+    return eevalor;
+}
+
+
+//AREA DE COMPROBACIÓN ================
+
+//Función || Comprobar Tablero enemigo ==================================================
+static bool ffcomprobar_tablero_enemigo(char[,] eetablero_enemigo, char eedanio, char eebase)
+{
+    int eetamanio = eetablero_enemigo.GetLength(0);
+
+    for (int ii = 0; ii < eetamanio; ii++)
+    {
+        for (int jj = 0; jj < eetamanio; jj++)
+        {
+            if (eetablero_enemigo[ii,jj] != eedanio && eetablero_enemigo[ii, jj] != eebase)
+            {
+                return true;
+            } 
+        }
+    }
+    return false;
+}
+
 //=======================================================================================
 //AREA DE DEFINICIONES ==================================================================
 //=======================================================================================
 
+bool eebool;
+
 char eebase = '*';
+char eedanio = 'X';
+char eefallo = 'O';
 
 string[] eebarcos = { "F", "NN", "PPP" };
 
@@ -231,8 +308,9 @@ for (int ii = 0; ii != 2;)
         {
             case 1:
                 Console.Clear() ;
-                ffgenerar_tablero_en_blanco (eetablero, eebase);
-                ffimprimit_tablero (eetablero);
+                Console.WriteLine($"\nTablero vacío:");
+                ffgenerar_tablero_en_blanco(eetablero, eebase);
+                //ffimprimit_tablero (eetablero);
                 Array.Copy(eetablero, eetablero_enemigo,eetablero.Length);
                 Array.Copy(eetablero, eetablero_propio, eetablero.Length);
 
@@ -240,9 +318,45 @@ for (int ii = 0; ii != 2;)
                 {
                     ffcolocar_los_barcos_enemigos(eetablero_enemigo, eebarco, eebase);
                 }
-
-                Console.WriteLine($"\nTablero enemigo:\n");
+                Console.WriteLine($"\nTablero propio:");
+                ffimprimit_tablero(eetablero_propio);
+                Console.WriteLine($"\nTablero enemigo:");
                 ffimprimit_tablero(eetablero_enemigo);
+
+
+                do
+                {
+                    try
+                    {
+                        Console.WriteLine($"\nComienza el juego!!!");
+                        Console.WriteLine($"Ingrese la fila: (Letra)");
+                        char eeletra_fila = char.Parse(Console.ReadLine());
+                        Console.WriteLine($"Ingrese la columna: (Numero)");
+                        int eenumero_columna = int.Parse(Console.ReadLine()) - 1;
+
+                        if (eetablero_enemigo.GetLength(0) + 1 > ffconvertir_letra_en_numero(eeletra_fila) && eetablero_enemigo.GetLength(0)+1 > eenumero_columna)
+                        {
+                            ffdañar_tablero_enemigo(eetablero_enemigo, eeletra_fila, eenumero_columna, eebase, eedanio, eefallo, eetablero_propio);
+                        }
+                        else
+                        {
+                            Console.Clear();
+                            Console.WriteLine($"Los datos ingresados se salen de los parámetros, inténtelo de nuevo:");
+                            Console.ReadKey();
+                        }
+                        Console.WriteLine($"\nTablero propio:");
+                        ffimprimit_tablero(eetablero_propio);
+                        Console.WriteLine($"\nTablero enemigo:");
+                        ffimprimit_tablero(eetablero_enemigo);
+                        
+                    }
+                    catch (Exception eerror)
+                    {
+                        Console.WriteLine($"Ah ocurrido un error en el ingreso de datos; Error: \"{eerror}\"");
+                    }
+                } while (ffcomprobar_tablero_enemigo(eetablero_enemigo, eedanio, eebase));
+
+                Console.WriteLine($"Ya no queda ningún barco enemigo! HAS GANADO!!!");
                 Console.ReadKey();
 
                 break;

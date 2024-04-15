@@ -526,12 +526,13 @@ for (int ii = 0; ii != -1;)
                     ffcolocar_los_barcos_enemigos(eetablero_enemigo, eebarco, eebase);
                 }
                 ffimprimir_tableros(eetablero_propio, eetablero_enemigo, eeintentos, eepuntos);
+                eeintentos = 20;
+
                 do
                 {
                     try
                     {
                         Console.WriteLine($"\nIngrese en Fila: \"A\" y en Columna: \"-1\" Para salir de la partida.");
-
                         Console.WriteLine($"\nIngrese la fila: (Letra)");
                         eeletra_fila = char.Parse(Console.ReadLine());
                         Console.WriteLine($"Ingrese la columna: (Numero)");
@@ -574,6 +575,8 @@ for (int ii = 0; ii != -1;)
                                 Console.WriteLine($"\nTablero enemigo:");
                                 ffimprimit_tablero(eetablero_enemigo);
                                 eebool = false;
+                                eeintentos = 0;
+                                eepuntos = 0;
                                 Console.ReadKey();
                             }
                         }

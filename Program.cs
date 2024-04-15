@@ -192,8 +192,8 @@ static bool ffpodemos_colocar_barco(char[,] eetablero_enemigo, string eebarco, i
             eefilatem = 1;
             break;
         case 2:
-            Console.WriteLine($"Ella no te ama :)");
-            Console.ReadKey();
+            eecolumnatem = 0;
+            eefilatem = 0;
             break;
     }
     int eefilasig = eefila + eefilatem;
@@ -226,8 +226,8 @@ static void ffcolocando_barcos(char[,] eetablero_enemigo, string eebarco, int ee
             eefilatem = 1;
             break;
         case 2:
-            Console.WriteLine($"Ella no te ama :)");
-            Console.ReadKey();
+            eecolumnatem = 0;
+            eefilatem = 0;
             break;
     }
     for (int ii = 0; ii < eebarco.Length;ii++)
@@ -356,9 +356,7 @@ static char[,] ffcolocar_barcos_manual(char[,] eetablerotem, string eebarco, cha
                 Console.WriteLine($"Ingrese la columna: (Numero)");
                 int eenumero_columna = int.Parse(Console.ReadLine()) - 1;
                 int eeletra_fila_numero = ffconvertir_letra_en_numero(eeletra_fila);
-                Console.WriteLine($"Ingrese la dirección: Horizontal = \"0\" -- Vartical = \"1\"");
-                int eedireccion = 0;
-
+                int eedireccion = 2;
                 if (ffpodemos_colocar_barco(eetablerotem, eebarco, eeletra_fila_numero, eenumero_columna, eedireccion, eebase))
                 {
                     ffcolocando_barcos(eetablerotem, eebarco, eeletra_fila_numero, eenumero_columna, eedireccion);
@@ -486,9 +484,6 @@ char eeletra_fila;
 
 int eepuntos = 0;
 int eeintentos = 20;
-int eef = 4;
-int een = 3;
-int eep = 1;
 
 char eebase = '*';
 char eedanio = 'O';
@@ -510,12 +505,12 @@ bool eebool = true;
 //=======================================================================================
 //PROGRAMA PRINCIPAL ====================================================================
 //=======================================================================================
-for (int ii = 0; ii != 23;)
+for (int ii = 0; ii != -1;)
 {
     try
     {
         Console.Clear();
-        Console.WriteLine($"Elija una opción:\n1. Iniciar el juego.\n2. Dos Jugadores\n-1. Salir del programa.");
+        Console.WriteLine($"Elija una opción:\n1. Iniciar el juego.\n2. Dos Jugadores\n\n-1. Salir del programa.");
         int eemenu1 =  int.Parse( Console.ReadLine() );
 
         switch (eemenu1 )

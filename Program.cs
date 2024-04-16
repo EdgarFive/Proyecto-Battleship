@@ -545,6 +545,8 @@ for (int ii = 0; ii != -1;)
                             Console.WriteLine($"Has salido de la partida.");
                             eebool = false;
                             Console.ReadKey();
+                            eeintentos = 0;
+                            eepuntos = 0;
                         }
                         else if (eetablero_enemigo.GetLength(0) + 1 > ffconvertir_letra_en_numero(eeletra_fila) && eetablero_enemigo.GetLength(0) + 1 > eenumero_columna)
                         {

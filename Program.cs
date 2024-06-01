@@ -516,6 +516,8 @@ for (int ii = 0; ii != -1;)
         switch (eemenu1 )
         {
             case 1:
+                eeintentos = 20;
+
                 Console.Clear() ;
                 ffgenerar_tablero_en_blanco(eetablero, eebase);
                 Array.Copy(eetablero, eetablero_enemigo,eetablero.Length);
@@ -526,7 +528,6 @@ for (int ii = 0; ii != -1;)
                     ffcolocar_los_barcos_enemigos(eetablero_enemigo, eebarco, eebase);
                 }
                 ffimprimir_tableros(eetablero_propio, eetablero_enemigo, eeintentos, eepuntos);
-                eeintentos = 20;
 
                 do
                 {
